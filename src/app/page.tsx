@@ -378,14 +378,11 @@ export default function Home() {
         <button
           onClick={() => setShowAIChatbot(true)}
           className="fixed bottom-20 right-4 md:bottom-6 md:right-6 z-40 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 border-2 border-amber-300/60 shadow-2xl px-4 py-2.5 rounded-full flex items-center gap-2 backdrop-blur-xl transition-all hover:scale-105 active:scale-95 font-black text-xs md:text-sm cursor-pointer pointer-events-auto"
-          title="Mở Trợ Lý Rồng AI Du Lịch 24/7"
+          title="Mở Trợ Lý AI Du Lịch 24/7"
         >
           <span className="text-lg md:text-xl animate-bounce">🤖</span>
           <span>Trợ Lý AI</span>
         </button>
-
-        {/* DRAGON MASCOT PET ASSISTANT (Toggled via Settings) */}
-        {showPet && <DragonPet />}
 
         {/* Floating Route Guidance Button (When active tour exists) */}
         {tourManager.activeTour && !showNavigationPanel && (

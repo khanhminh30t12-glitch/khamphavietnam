@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
-import GoldParticlesRainCanvas from './GoldParticlesRainCanvas';
+import StarryBackgroundCanvas from './StarryBackgroundCanvas';
 
 interface LoginSplashScreenProps {
   onLoginSuccess: () => void;
@@ -46,14 +46,14 @@ export default function LoginSplashScreen({ onLoginSuccess }: LoginSplashScreenP
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0e0302] text-white overflow-hidden p-4">
-      {/* 3D GOLDEN METEOR & GLITTER RAIN CANVAS BACKGROUND */}
-      <GoldParticlesRainCanvas />
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#07020d] text-white overflow-hidden p-4">
+      {/* SHIMMERING STARRY GOLDEN BACKGROUND CANVAS */}
+      <StarryBackgroundCanvas />
 
       {/* TOP RIGHT LANGUAGE SWITCHER BUTTON */}
       <button
         onClick={() => setLanguage(isEn ? 'vi' : 'en')}
-        className="absolute top-6 right-6 z-50 px-4 py-2 rounded-2xl bg-[#1a0806]/90 border border-amber-400/50 backdrop-blur-xl shadow-2xl text-xs font-black text-amber-400 flex items-center gap-2 hover:scale-105 active:scale-95 transition-all pointer-events-auto"
+        className="absolute top-6 right-6 z-50 px-4 py-2 rounded-2xl bg-slate-900/90 border border-amber-400/50 backdrop-blur-xl shadow-2xl text-xs font-black text-amber-400 flex items-center gap-2 hover:scale-105 active:scale-95 transition-all pointer-events-auto cursor-pointer"
       >
         <span>{isEn ? '🇬🇧 English' : '🇻🇳 Tiếng Việt'}</span>
         <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-[10px] font-black border border-amber-500/30">
@@ -61,13 +61,12 @@ export default function LoginSplashScreen({ onLoginSuccess }: LoginSplashScreenP
         </span>
       </button>
 
-      {/* LUXURY GLASSMORPHISM FORM CARD FLOATING ON GOLDEN RAIN */}
-      <div className="relative z-10 w-full max-w-md bg-[#120504]/85 border border-amber-400/35 backdrop-blur-2xl rounded-3xl p-6 md:p-8 shadow-2xl shadow-amber-500/15 animate-slide-up text-center [transform:translate3d(0,0,0)] [will-change:transform]">
-        
+      {/* MINIMALIST ELEGANT GLASSMORPHISM CARD */}
+      <div className="relative z-10 w-full max-w-md bg-slate-950/85 border border-amber-400/35 backdrop-blur-2xl rounded-3xl p-6 md:p-8 shadow-2xl shadow-amber-500/15 animate-slide-up text-center [transform:translate3d(0,0,0)] [will-change:transform]">
         {/* BRAND ICON BADGE */}
         <div className="relative w-20 h-20 mx-auto mb-4 flex items-center justify-center">
-          <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-amber-500 via-orange-500 to-red-600 blur-xl opacity-80 animate-pulse" />
-          <div className="relative w-full h-full rounded-full bg-[#1c0806] border-2 border-amber-400 flex items-center justify-center text-4xl shadow-2xl">
+          <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-amber-400 via-amber-500 to-amber-600 blur-xl opacity-70 animate-pulse" />
+          <div className="relative w-full h-full rounded-full bg-slate-900 border-2 border-amber-400 flex items-center justify-center text-4xl shadow-2xl">
             🇻🇳
           </div>
         </div>
@@ -91,7 +90,7 @@ export default function LoginSplashScreen({ onLoginSuccess }: LoginSplashScreenP
                 value={username}
                 onChange={e => setUsername(e.target.value)}
                 placeholder="1"
-                className="w-full px-4 py-3 bg-[#1e0907]/90 border border-amber-400/30 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition-colors font-mono font-bold"
+                className="w-full px-4 py-3 bg-slate-900/90 border border-amber-400/30 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition-colors font-mono font-bold"
                 required
               />
             </div>
@@ -105,45 +104,42 @@ export default function LoginSplashScreen({ onLoginSuccess }: LoginSplashScreenP
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 placeholder="1"
-                className="w-full px-4 py-3 bg-[#1e0907]/90 border border-amber-400/30 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition-colors font-mono font-bold"
+                className="w-full px-4 py-3 bg-slate-900/90 border border-amber-400/30 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition-colors font-mono font-bold"
                 required
               />
             </div>
 
             {errorMsg && (
-              <div className="p-3 bg-rose-500/20 border border-rose-400/40 rounded-xl text-rose-300 text-xs font-semibold">
+              <div className="p-3 rounded-xl bg-red-500/20 border border-red-500/40 text-red-300 text-xs font-bold animate-shake">
                 {errorMsg}
               </div>
             )}
 
             <button
               type="submit"
-              className="w-full py-3.5 px-4 bg-gradient-to-r from-red-700 via-orange-600 to-amber-500 hover:brightness-110 text-slate-950 font-black rounded-xl text-sm shadow-xl shadow-amber-500/25 transition-all transform active:scale-95 flex items-center justify-center gap-2 mt-2 cursor-pointer"
+              className="w-full py-3.5 mt-2 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-500 hover:to-amber-700 text-slate-950 font-black text-sm uppercase tracking-wider shadow-lg shadow-amber-500/20 active:scale-98 transition-all cursor-pointer"
             >
-              <span>🚀</span>
-              <span>{tr('login_button')}</span>
+              {tr('login_btn')}
             </button>
-
-            <div className="text-[11px] text-amber-300/80 text-center mt-3 font-medium">
-              {tr('trial_account_hint')}
-            </div>
           </form>
         ) : (
-          /* PRELOADER ANIMATION */
           <div className="py-6 space-y-4">
-            <div className="w-full bg-[#1e0907] h-3.5 rounded-full overflow-hidden p-0.5 border border-amber-400/40">
+            <div className="w-full bg-slate-900 rounded-full h-3 overflow-hidden border border-amber-400/30 p-0.5">
               <div
-                className="bg-gradient-to-r from-red-700 via-orange-600 to-amber-400 h-full rounded-full transition-all duration-300 ease-out"
+                className="bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 h-full rounded-full transition-all duration-300"
                 style={{ width: `${loadingProgress}%` }}
               />
             </div>
-
-            <div className="flex justify-between items-center text-xs font-bold text-amber-300">
-              <span className="text-amber-400">{tr('preload_status')}</span>
-              <span>{loadingProgress}%</span>
-            </div>
+            <p className="text-xs text-amber-400 font-extrabold animate-pulse">
+              {isEn ? 'Loading Vietnam 3D Map Environment...' : 'Đang tải môi trường Bản đồ 3D Việt Nam...'} ({loadingProgress}%)
+            </p>
           </div>
         )}
+
+        <div className="mt-6 pt-4 border-t border-amber-400/20 flex items-center justify-between text-[11px] text-amber-300/80 font-semibold">
+          <span>{isEn ? 'Demo User: 1' : 'Tài khoản demo: 1'}</span>
+          <span>{isEn ? 'Password: 1' : 'Mật khẩu: 1'}</span>
+        </div>
       </div>
     </div>
   );
