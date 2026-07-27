@@ -592,7 +592,6 @@ export default function Home() {
         onClose={() => setShowSettingsModal(false)}
         activeWeatherMode={weatherMode}
         onWeatherModeChange={setWeatherMode}
-        onReplayOnboarding={() => setShowOnboarding(true)}
         showPet={showPet}
         onTogglePet={() => setShowPet(!showPet)}
         performanceMode={performanceMode}

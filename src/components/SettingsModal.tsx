@@ -9,7 +9,6 @@ interface SettingsModalProps {
   onClose: () => void;
   activeWeatherMode: WeatherMode;
   onWeatherModeChange: (mode: WeatherMode) => void;
-  onReplayOnboarding: () => void;
   showPet: boolean;
   onTogglePet: () => void;
   performanceMode: 'high' | 'eco';
@@ -21,13 +20,12 @@ export default function SettingsModal({
   onClose,
   activeWeatherMode,
   onWeatherModeChange,
-  onReplayOnboarding,
   showPet,
   onTogglePet,
   performanceMode,
   onTogglePerformanceMode
 }: SettingsModalProps) {
-  const { language, setLanguage, tr } = useLanguage();
+  const { language, setLanguage } = useLanguage();
   const isEn = language === 'en';
 
   if (!isOpen) return null;
@@ -122,15 +120,15 @@ export default function SettingsModal({
           </div>
         </div>
 
-        {/* 3. DRAGON AI ASSISTANT CONTROLS */}
+        {/* 3. STAR MASCOT CONTROLS */}
         <div className="space-y-3 bg-slate-800/50 p-4 rounded-2xl border border-slate-700/60">
           <label className="text-xs font-bold text-amber-300 uppercase tracking-wider block">
-            🐉 {isEn ? 'Dragon AI Mascot Assistant' : 'Trợ Lý Linh Vật Rồng AI'}
+            ⭐ {isEn ? 'Star Mascot Assistant' : 'Trợ Lý Linh Vật Ngôi Sao'}
           </label>
           
           <div className="flex items-center justify-between pt-1">
             <span className="text-xs font-medium text-slate-300">
-              {isEn ? 'Show Dragon Mascot on screen' : 'Hiển thị Rồng AI trên màn hình'}
+              {isEn ? 'Show Star Mascot on screen' : 'Hiển thị Ngôi Sao trên màn hình'}
             </span>
             <button
               onClick={onTogglePet}
@@ -145,17 +143,6 @@ export default function SettingsModal({
               />
             </button>
           </div>
-
-          <button
-            onClick={() => {
-              onClose();
-              onReplayOnboarding();
-            }}
-            className="w-full py-2.5 px-4 bg-slate-800 hover:bg-slate-700 border border-amber-400/40 text-amber-300 font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-all active:scale-95"
-          >
-            <span>❓</span>
-            <span>{isEn ? 'Replay Onboarding Tutorial Tour' : 'Xem Lại Tour Hướng Dẫn Rồng AI'}</span>
-          </button>
         </div>
 
         {/* 4. PERFORMANCE MODE */}
