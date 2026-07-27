@@ -3,7 +3,10 @@
 import React, { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 
+import { Landmark } from '@/types';
+
 interface StarMascotProps {
+  selectedLandmark?: Landmark | null;
   onOpenAiChat?: () => void;
 }
 
