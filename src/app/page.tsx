@@ -82,19 +82,6 @@ export default function Home() {
   const [showTravelNotes, setShowTravelNotes] = useState(false);
   const [activeTab, setActiveTab] = useState('home');
   const [navigateToCoords, setNavigateToCoords] = useState<Coordinates | null>(null);
-  const [dragonGuideData, setDragonGuideData] = useState<{
-    isOpen: boolean;
-    originName: string;
-    destinationName: string;
-    distanceKm: number;
-    steps: RouteStep[];
-  }>({
-    isOpen: false,
-    originName: '',
-    destinationName: '',
-    distanceKm: 0,
-    steps: []
-  });
 
   const allLandmarks = useMemo(() => {
     return regions.flatMap(region => region.landmarks);
@@ -153,21 +140,6 @@ export default function Home() {
     setSelectedLandmark(landmarkRef);
     setShowLandmarkPanel(true);
     setNavigateToCoords(coords);
-
-    const { fetchRealRoadRoute } = await import('@/utils/routing');
-    const route = await fetchRealRoadRoute(
-      landmarkRef.coordinates,
-      coords,
-      process.env.NEXT_PUBLIC_MAPBOX_TOKEN
-    );
-
-    setDragonGuideData({
-      isOpen: true,
-      originName: t(landmarkRef.name),
-      destinationName: name,
-      distanceKm: route.distanceKm,
-      steps: route.steps
-    });
   };
 
   const handleSearchSelectTour = (tour: import('@/types').TourRoute) => {
@@ -385,50 +357,8 @@ export default function Home() {
             onCheckIn={() => setShowCamera(true)}
             onNavigateToPlace={(coords) => setNavigateToCoords(coords)}
             onStartTour={handleSelectTour}
-            onStartDragonGuide={async (originName, destName, targetCoords, distKm) => {
-              setNavigateToCoords(targetCoords);
-              const { fetchRealRoadRoute } = await import('@/utils/routing');
-              if (selectedLandmark) {
-                const route = await fetchRealRoadRoute(
-                  selectedLandmark.coordinates,
-                  targetCoords,
-                  process.env.NEXT_PUBLIC_MAPBOX_TOKEN
-                );
-                setDragonGuideData({
-                  isOpen: true,
-                  originName,
-                  destinationName: destName,
-                  distanceKm: route.distanceKm,
-                  steps: route.steps
-                });
-              } else {
-                setDragonGuideData({
-                  isOpen: true,
-                  originName,
-                  destinationName: destName,
-                  distanceKm: distKm,
-                  steps: [
-                    {
-                      instruction: `Di chuyển từ ${originName} đến ${destName}`,
-                      distanceKm: distKm,
-                      durationMins: Math.round(distKm * 2.5)
-                    }
-                  ]
-                });
-              }
-            }}
           />
         )}
-
-        {/* Dragon AI Voice & Step-by-Step Navigation Guide */}
-        <DragonGuide
-          isOpen={dragonGuideData.isOpen}
-          onClose={() => setDragonGuideData(prev => ({ ...prev, isOpen: false }))}
-          originName={dragonGuideData.originName}
-          destinationName={dragonGuideData.destinationName}
-          distanceKm={dragonGuideData.distanceKm}
-          steps={dragonGuideData.steps}
-        />
       </div>
 
       {/* Mobile Navigation */}
@@ -439,7 +369,6 @@ export default function Home() {
         activeTab={activeTab}
         onTabChange={setActiveTab}
       />
-
       {/* ===== MODALS ===== */}
 
       {/* 3D Preview / Panorama Modal */}
@@ -450,12 +379,6 @@ export default function Home() {
           isOpen={showPreview3D}
           onClose={() => setShowPreview3D(false)}
           onCheckIn={() => setShowCamera(true)}
-          onSpeak={() => {
-            speak({
-              vi: selectedLandmark.history.vi,
-              en: selectedLandmark.history.en
-            });
-          }}
         />
       )}
 

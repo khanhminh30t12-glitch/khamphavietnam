@@ -9,7 +9,7 @@ interface Preview3DModalProps {
   isOpen: boolean;
   onClose: () => void;
   onCheckIn: () => void;
-  onSpeak: () => void;
+  onSpeak?: () => void;
 }
 
 export default function Preview3DModal({ landmark, isOpen, onClose, onCheckIn, onSpeak }: Preview3DModalProps) {
