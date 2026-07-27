@@ -488,60 +488,6 @@ export const regions: Region[] = [
         nearbyHotels: ['hot_inter_dn'],
         nearbyCafes: ['cafe_faifo_ha'],
         checkInReward: 100
-      },
-      {
-        id: 'lm_hoang_sa',
-        name: {
-          vi: '🇻🇳 Quần Đảo Hoàng Sa (TP. Đà Nẵng)',
-          en: '🇻🇳 Hoang Sa Archipelago (Da Nang)'
-        },
-        region: 'central',
-        coordinates: { lng: 112.0, lat: 16.5 },
-        image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
-        history: {
-          vi: 'Quần đảo Hoàng Sa là huyện đảo thuộc thành phố Đà Nẵng, Việt Nam. Nơi đây là vùng biển đảo thiên nhiên hùng vĩ, gắn liền với mốc chủ quyền thiêng liêng và lịch sử thực thi chủ quyền của các triều đại Việt Nam từ hàng trăm năm qua.',
-          en: 'Hoang Sa Archipelago is an island district of Da Nang City, Vietnam. It is a majestic marine environment deeply tied to Vietnam\'s sacred sovereignty and history over centuries.'
-        },
-        architecture: {
-          vi: 'Hệ thống rạn san hô, đảo đá tự nhiên và các cột mốc chủ quyền thiêng liêng rực rỡ cờ đỏ sao vàng vươn mình giữa Biển Đông.',
-          en: 'Coral reefs, natural islands, and sacred national sovereignty milestones proudly featuring the red flag with yellow star.'
-        },
-        cuisine: {
-          vi: 'Hải sản rạn san hô tươi sống, cá ngừ đại dương và sản vật biển sâu.',
-          en: 'Fresh coral reef seafood, ocean tuna, and deep sea specialties.'
-        },
-        nearbyFood: ['res_mi_quang'],
-        nearbyHotels: ['hot_four_seasons'],
-        checkInReward: 500,
-        badge: 'badge_hoang_sa',
-        dragonElement: 'water'
-      },
-      {
-        id: 'lm_truong_sa',
-        name: {
-          vi: '🇻🇳 Quần Đảo Trường Sa (Tỉnh Khánh Hòa)',
-          en: '🇻🇳 Truong Sa Archipelago (Khanh Hoa)'
-        },
-        region: 'central',
-        coordinates: { lng: 111.91, lat: 8.86 },
-        image: 'https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1200&q=80',
-        history: {
-          vi: 'Quần đảo Trường Sa là huyện đảo thuộc tỉnh Khánh Hòa, Việt Nam. Đây là tuyến tiền tiêu bảo vệ vùng biển đảo thiêng liêng của Tổ quốc với những cây bàng vuông, phong ba kiên cường trước sóng gió Biển Đông.',
-          en: 'Truong Sa Archipelago is an island district of Khanh Hoa Province, Vietnam. It is the outpost protecting the Fatherland\'s sacred waters, famous for resilient square-barringtonia trees.'
-        },
-        architecture: {
-          vi: 'Cột mốc chủ quyền quốc gia thiêng liêng, ngọn hải đăng Trường Sa dẫn đường cho tàu thuyền và các chùa biển đảo uy nghiêm.',
-          en: 'Sacred national sovereignty landmarks, Truong Sa lighthouses guiding ships, and solemn island pagodas.'
-        },
-        cuisine: {
-          vi: 'Cá ngừ đại dương, hải sâm và mực một nắng biển khơi.',
-          en: 'Ocean tuna, sea cucumber, and sun-dried squid.'
-        },
-        nearbyFood: ['res_mi_quang'],
-        nearbyHotels: ['hot_four_seasons'],
-        checkInReward: 500,
-        badge: 'badge_truong_sa',
-        dragonElement: 'water'
       }
     ],
     cafes: [

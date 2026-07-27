@@ -23,10 +23,12 @@ interface Map3DViewProps {
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
 const allLandmarks: Landmark[] = regions.flatMap(r => r.landmarks);
 
+import { addVietnamTerritoryLayers } from '@/utils/vietnamMaskLayer';
+
 // Vietnam Bounds coordinates (Southwest, Northeast) - encompasses full Vietnam & sea islands (Hoang Sa & Truong Sa)
 const VIETNAM_BOUNDS: mapboxgl.LngLatBoundsLike = [
-  [101.5, 7.0],   // SW: Gulf of Thailand / South of Truong Sa
-  [113.8, 24.0]  // NE: North of Vietnam / East of Hoang Sa
+  [100.5, 6.5],   // SW: Gulf of Thailand / South of Truong Sa
+  [114.8, 24.5]  // NE: North of Vietnam / East of Hoang Sa
 ];
 
 export function Map3DViewComponent({
@@ -59,9 +61,9 @@ export function Map3DViewComponent({
     const initialMap = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/outdoors-v12', // Natural Outdoors Theme with Rivers & Greenery
-      center: [108.206230, 16.047079], // Center of Vietnam (Da Nang / Sea Coast)
-      zoom: 6.0,
-      minZoom: 5.5,
+      center: [109.0, 15.2], // Center showing full S-curve Vietnam mainland & Hoang Sa / Truong Sa
+      zoom: 5.2,
+      minZoom: 4.8,
       maxZoom: 18,
       maxBounds: VIETNAM_BOUNDS,
       pitch: 35,
@@ -91,6 +93,9 @@ export function Map3DViewComponent({
     );
 
     initialMap.on('load', () => {
+      // Add Native Geographic Map Text Labels for Hoang Sa & Truong Sa
+      addVietnamTerritoryLayers(initialMap);
+
       // 3D Terrain setup
       if (!initialMap.getSource('mapbox-dem')) {
         initialMap.addSource('mapbox-dem', {
