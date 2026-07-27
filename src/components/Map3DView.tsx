@@ -24,10 +24,10 @@ interface Map3DViewProps {
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
 const allLandmarks: Landmark[] = regions.flatMap(r => r.landmarks);
 
-// Vietnam Bounds coordinates (Southwest, Northeast)
+// Vietnam Bounds coordinates (Southwest, Northeast) including Hoang Sa & Truong Sa
 const VIETNAM_BOUNDS: mapboxgl.LngLatBoundsLike = [
-  [102.0, 8.0],   // SW
-  [112.0, 23.5]  // NE
+  [101.0, 6.5],   // SW
+  [116.0, 24.5]  // NE
 ];
 
 export function Map3DViewComponent({
@@ -56,16 +56,18 @@ export function Map3DViewComponent({
   useEffect(() => {
     if (!mapContainer.current) return;
 
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
     mapboxgl.accessToken = MAPBOX_TOKEN;
     const initialMap = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/outdoors-v12', // Natural Outdoors Theme with Rivers & Greenery
-      center: [108.206230, 16.047079], // Tọa độ trung tâm Việt Nam
-      zoom: 6.0,
-      minZoom: 5.5,
+      center: [108.8, 15.8], // Center shifted East to cover East Sea, Hoang Sa & Truong Sa
+      zoom: isMobile ? 4.8 : 5.2, // Perfect fit for Mobile & Desktop
+      minZoom: 4.2,
       maxZoom: 18,
       maxBounds: VIETNAM_BOUNDS,
-      pitch: 35,
+      pitch: 25,
       bearing: 0,
       dragPan: true,
       scrollZoom: true,
@@ -797,10 +799,11 @@ export function Map3DViewComponent({
   const handleResetView = () => {
     const map = mapRef.current;
     if (map) {
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
       map.flyTo({
-        center: [108.206230, 16.047079],
-        zoom: 6.0,
-        pitch: 35,
+        center: [108.8, 15.8],
+        zoom: isMobile ? 4.8 : 5.2,
+        pitch: 25,
         bearing: 0,
         duration: 2000
       });

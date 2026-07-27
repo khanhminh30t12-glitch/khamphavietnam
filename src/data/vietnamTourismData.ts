@@ -496,7 +496,7 @@ export const regions: Region[] = [
           en: '🇻🇳 Paracel Islands (Da Nang City)'
         },
         region: 'central',
-        coordinates: { lng: 112.0, lat: 16.5 },
+        coordinates: { lng: 111.6083, lat: 16.5388 },
         image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80',
         history: {
           vi: 'Quần đảo Hoàng Sa là một quần đảo san hô ở Biển Đông, thuộc chủ quyền thiêng liêng và không thể tách rời của Việt Nam, trực thuộc sự quản lý hành chính của UBND huyện đảo Hoàng Sa, thành phố Đà Nẵng. Từ nhiều thế kỷ trước dưới thời nhà Nguyễn, Đội Hoàng Sa đã được thành lập để thực thi chủ quyền, đo đạc hải trình và bảo vệ vùng biển đảo Tổ quốc.',
@@ -524,7 +524,7 @@ export const regions: Region[] = [
           en: '🇻🇳 Spratly Islands (Khanh Hoa Province)'
         },
         region: 'central',
-        coordinates: { lng: 111.91, lat: 8.86 },
+        coordinates: { lng: 111.9161, lat: 8.8572 },
         image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80',
         history: {
           vi: 'Quần đảo Trường Sa là lãnh thổ biển đảo thiêng liêng của Việt Nam, thuộc huyện đảo Trường Sa, tỉnh Khánh Hòa. Trường Sa là biểu tượng kiên cường cho ý chí bảo vệ chủ quyền biển đảo của các thế hệ cán bộ, chiến sĩ Hải quân Nhân dân Việt Nam.',
