@@ -5,7 +5,7 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Landmark, Coordinates } from '@/types';
 import { regions } from '@/data/vietnamTourismData';
-import { WORLD_MINUS_VIETNAM_GEOJSON, VIETNAM_GLOW_BORDER_GEOJSON } from '@/data/vietnamBoundaryGeoJSON';
+import { BLACKOUT_OUTSIDE_MASK_GEOJSON, VIETNAM_GLOWING_CONTOUR_GEOJSON } from '@/data/vietnamMaskLayer';
 import { calculateHaversineDistance } from '@/utils/geoDistance';
 import { PoiCategoryFilter, RadiusFilter } from './PoiFilterToolbar';
 
@@ -119,7 +119,7 @@ export function Map3DViewComponent({
     };
   }, []);
 
-  // Render Outside World Grayscale Mask & Glowing Vietnam National Border
+  // Render Complete 100% Blackout Outside Mask & Glowing Vietnam National Border
   const renderVietnamHighlightMask = (mapInstance: mapboxgl.Map) => {
     const maskSourceId = 'world-outside-mask-source';
     const maskLayerId = 'world-outside-mask-layer';
@@ -127,7 +127,7 @@ export function Map3DViewComponent({
     if (!mapInstance.getSource(maskSourceId)) {
       mapInstance.addSource(maskSourceId, {
         type: 'geojson',
-        data: WORLD_MINUS_VIETNAM_GEOJSON
+        data: BLACKOUT_OUTSIDE_MASK_GEOJSON
       });
     }
 
@@ -138,8 +138,8 @@ export function Map3DViewComponent({
         source: maskSourceId,
         layout: {},
         paint: {
-          'fill-color': '#030712', // Pure dark black background to completely hide all other countries outside Vietnam
-          'fill-opacity': 0.98     // 98% solid mask to cover external landmasses completely
+          'fill-color': '#000000', // 100% Complete Pitch Black background outside Vietnam
+          'fill-opacity': 1.0      // 1.0 Full opacity blackout mask
         }
       });
     }
@@ -151,7 +151,7 @@ export function Map3DViewComponent({
     if (!mapInstance.getSource(borderSourceId)) {
       mapInstance.addSource(borderSourceId, {
         type: 'geojson',
-        data: VIETNAM_GLOW_BORDER_GEOJSON
+        data: VIETNAM_GLOWING_CONTOUR_GEOJSON
       });
     }
 
@@ -163,9 +163,9 @@ export function Map3DViewComponent({
         layout: { 'line-join': 'round', 'line-cap': 'round' },
         paint: {
           'line-color': '#f59e0b', // Amber/gold neon aura
-          'line-width': 8,
-          'line-blur': 5,
-          'line-opacity': 0.95
+          'line-width': 10,
+          'line-blur': 6,
+          'line-opacity': 1.0
         }
       });
     }
@@ -178,7 +178,7 @@ export function Map3DViewComponent({
         layout: { 'line-join': 'round', 'line-cap': 'round' },
         paint: {
           'line-color': '#ffffff', // Bright white core line
-          'line-width': 2.5,
+          'line-width': 3.0,
           'line-opacity': 1.0
         }
       });
