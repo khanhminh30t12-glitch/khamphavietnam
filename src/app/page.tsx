@@ -37,6 +37,7 @@ import PoiFilterToolbar, { PoiCategoryFilter, RadiusFilter } from '@/components/
 
 const AIChatbotModal = dynamic(() => import('@/components/AIChatbotModal'), { ssr: false });
 const StarMascot = dynamic(() => import('@/components/StarMascot'), { ssr: false });
+import StarryBackgroundCanvas from '@/components/StarryBackgroundCanvas';
 
 export default function Home() {
   const router = useRouter();
@@ -228,7 +229,9 @@ export default function Home() {
   }
 
   return (
-    <main className="relative w-full h-screen overflow-hidden bg-slate-900">
+    <main className="relative w-full h-screen overflow-hidden bg-[#F7F4EC]">
+      {/* SHIMMERING RED STARS ON WARM BEIGE BACKGROUND */}
+      <StarryBackgroundCanvas />
 
       {/* 3D Dynamic Weather Effects Canvas (Rain, Sunbeams, Clouds, Snow) */}
       <WeatherEffects mode={weatherMode} />

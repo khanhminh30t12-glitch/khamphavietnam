@@ -28,18 +28,20 @@ export default function StarryBackgroundCanvas() {
 
     const starCount = width < 768 ? 120 : 250;
     const stars: Star[] = [];
-    const colors = ['#fef08a', '#fbbf24', '#f59e0b', '#ffffff', '#e0e7ff'];
+    
+    // Vibrant Shimmering Crimson Red Color Palette
+    const redStarColors = ['#E63946', '#D90429', '#FF4D6D', '#C1121F', '#B7094C', '#FF2A6D'];
 
     for (let i = 0; i < starCount; i++) {
       stars.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        size: Math.random() * 2 + 0.8,
-        maxOpacity: Math.random() * 0.7 + 0.3,
+        size: Math.random() * 2.2 + 0.8,
+        maxOpacity: Math.random() * 0.75 + 0.25,
         opacity: Math.random(),
         pulseSpeed: Math.random() * 0.02 + 0.005,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        hasFlare: Math.random() > 0.8
+        color: redStarColors[Math.floor(Math.random() * redStarColors.length)],
+        hasFlare: Math.random() > 0.75
       });
     }
 
@@ -52,7 +54,7 @@ export default function StarryBackgroundCanvas() {
     window.addEventListener('resize', handleResize);
 
     const render = () => {
-      // Deep Royal Midnight Starry Background Gradient
+      // Warm Elegant Vintage Beige Background Gradient (#F5F2EB to #E8E2D5)
       const bgGrad = ctx.createRadialGradient(
         width / 2,
         height * 0.3,
@@ -61,14 +63,14 @@ export default function StarryBackgroundCanvas() {
         height / 2,
         Math.max(width, height)
       );
-      bgGrad.addColorStop(0, '#1a0927');
-      bgGrad.addColorStop(0.5, '#0b0312');
-      bgGrad.addColorStop(1, '#040107');
+      bgGrad.addColorStop(0, '#F7F4EC');
+      bgGrad.addColorStop(0.5, '#EFEAD8');
+      bgGrad.addColorStop(1, '#E4DCCB');
 
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, width, height);
 
-      // Render Shimmering Golden Stars
+      // Render Shimmering Red Stars
       const time = Date.now();
       for (let i = 0; i < stars.length; i++) {
         const s = stars[i];
@@ -81,24 +83,31 @@ export default function StarryBackgroundCanvas() {
         ctx.globalAlpha = currentOpacity;
         ctx.fillStyle = s.color;
 
-        // Draw Core Star Point
+        // Draw Soft Red Glow Outer Circle
         ctx.beginPath();
-        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.arc(s.x, s.y, s.size * 2, 0, Math.PI * 2);
+        ctx.fillStyle = s.color + '40';
         ctx.fill();
 
-        // Draw 4-Point Lens Flare Sparkle for brighter stars
-        if (s.hasFlare && currentOpacity > 0.6) {
-          ctx.strokeStyle = s.color;
-          ctx.lineWidth = 0.8;
-          const flareLen = s.size * 3.5 * shimmer;
+        // Draw Core Red Star Point
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fillStyle = s.color;
+        ctx.fill();
 
-          // Horizontal Flare Line
+        // Draw 4-Point Red Lens Flare Sparkle for brighter stars
+        if (s.hasFlare && currentOpacity > 0.55) {
+          ctx.strokeStyle = s.color;
+          ctx.lineWidth = 1.0;
+          const flareLen = s.size * 4 * shimmer;
+
+          // Horizontal Red Flare Line
           ctx.beginPath();
           ctx.moveTo(s.x - flareLen, s.y);
           ctx.lineTo(s.x + flareLen, s.y);
           ctx.stroke();
 
-          // Vertical Flare Line
+          // Vertical Red Flare Line
           ctx.beginPath();
           ctx.moveTo(s.x, s.y - flareLen);
           ctx.lineTo(s.x, s.y + flareLen);
