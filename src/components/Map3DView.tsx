@@ -138,8 +138,8 @@ export function Map3DViewComponent({
         source: maskSourceId,
         layout: {},
         paint: {
-          'fill-color': '#020617', // Dark slate background to dim out everything outside Vietnam
-          'fill-opacity': 0.65     // 65% opacity mask
+          'fill-color': '#030712', // Pure dark black background to completely hide all other countries outside Vietnam
+          'fill-opacity': 0.98     // 98% solid mask to cover external landmasses completely
         }
       });
     }
