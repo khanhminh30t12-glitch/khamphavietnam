@@ -35,9 +35,30 @@ const defaultProgress: UserProgress = {
   redeemedRewards: []
 };
 
-const LEVEL_THRESHOLDS = [0, 200, 400, 600, 800, 1100, 1400, 1700, 2000, 2500, 4000, 7000];
+export const LEVEL_THRESHOLDS = [
+  0,     // Lv.1
+  150,   // Lv.2
+  300,   // Lv.3
+  500,   // Lv.4
+  750,   // Lv.5 (Sao Tập Sự)
+  1050,  // Lv.6
+  1400,  // Lv.7
+  1800,  // Lv.8
+  2250,  // Lv.9
+  2750,  // Lv.10 (Sao Dẫn Đường)
+  3300,  // Lv.11
+  3950,  // Lv.12
+  4700,  // Lv.13
+  5550,  // Lv.14
+  6500,  // Lv.15 (Sao Hoàng Gia)
+  7600,  // Lv.16
+  8850,  // Lv.17
+  10250, // Lv.18
+  11800, // Lv.19
+  13500  // Lv.20 (Cosmic Supernova Star)
+];
 
-const calculateLevel = (totalExp: number): number => {
+export const calculateLevel = (totalExp: number): number => {
   let level = 1;
   for (let i = 1; i < LEVEL_THRESHOLDS.length; i++) {
     if (totalExp >= LEVEL_THRESHOLDS[i]) {
@@ -46,7 +67,7 @@ const calculateLevel = (totalExp: number): number => {
       break;
     }
   }
-  return level;
+  return Math.min(20, level);
 };
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
