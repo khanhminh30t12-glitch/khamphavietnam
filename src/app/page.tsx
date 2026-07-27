@@ -42,6 +42,7 @@ import Dragon3DEffects, { DragonElementType } from '@/components/Dragon3DEffects
 import PoiFilterToolbar, { PoiCategoryFilter, RadiusFilter } from '@/components/PoiFilterToolbar';
 
 const AIChatbotModal = dynamic(() => import('@/components/AIChatbotModal'), { ssr: false });
+const StarMascot = dynamic(() => import('@/components/StarMascot'), { ssr: false });
 
 export default function Home() {
   const router = useRouter();
@@ -372,6 +373,12 @@ export default function Home() {
         <FogOverlay
           revealedAreas={progress.revealedAreas}
           allLandmarks={allLandmarks}
+        />
+
+        {/* SMART SHIMMERING STAR MASCOT */}
+        <StarMascot
+          selectedLandmark={selectedLandmark}
+          onOpenAiChat={() => setShowAIChatbot(true)}
         />
 
         {/* FLOATING ACTION BUTTON (FAB) FOR AI TRAVEL CHATBOT AT BOTTOM RIGHT */}
