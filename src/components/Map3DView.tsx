@@ -23,10 +23,10 @@ interface Map3DViewProps {
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
 const allLandmarks: Landmark[] = regions.flatMap(r => r.landmarks);
 
-// Vietnam Bounds coordinates (Southwest, Northeast)
+// Vietnam Bounds coordinates (Southwest, Northeast) - encompasses full Vietnam & sea islands (Hoang Sa & Truong Sa)
 const VIETNAM_BOUNDS: mapboxgl.LngLatBoundsLike = [
-  [102.14441, 8.179066],   // SW
-  [109.464639, 23.393395]  // NE
+  [101.5, 7.0],   // SW: Gulf of Thailand / South of Truong Sa
+  [113.8, 24.0]  // NE: North of Vietnam / East of Hoang Sa
 ];
 
 export function Map3DViewComponent({
@@ -59,8 +59,8 @@ export function Map3DViewComponent({
     const initialMap = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/outdoors-v12', // Natural Outdoors Theme with Rivers & Greenery
-      center: [106.8, 16.2], // Center of Vietnam
-      zoom: 6,
+      center: [108.206230, 16.047079], // Center of Vietnam (Da Nang / Sea Coast)
+      zoom: 6.0,
       minZoom: 5.5,
       maxZoom: 18,
       maxBounds: VIETNAM_BOUNDS,

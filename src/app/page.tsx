@@ -41,6 +41,8 @@ import WeatherEffects, { WeatherMode } from '@/components/WeatherEffects';
 import Dragon3DEffects, { DragonElementType } from '@/components/Dragon3DEffects';
 import PoiFilterToolbar, { PoiCategoryFilter, RadiusFilter } from '@/components/PoiFilterToolbar';
 
+const AIChatbotModal = dynamic(() => import('@/components/AIChatbotModal'), { ssr: false });
+
 export default function Home() {
   const router = useRouter();
   const { progress, checkIn, revealArea } = useGame();
@@ -57,6 +59,7 @@ export default function Home() {
   const [showUserProfileModal, setShowUserProfileModal] = useState(false);
   const [showLuckyWheel, setShowLuckyWheel] = useState(false);
   const [showPuzzleGame, setShowPuzzleGame] = useState(false);
+  const [showAIChatbot, setShowAIChatbot] = useState(false);
   const [performanceMode, setPerformanceMode] = useState<'high' | 'eco'>('high');
   const [showPet, setShowPet] = useState(true);
   const [activeDragonBlast, setActiveDragonBlast] = useState<{
@@ -371,11 +374,15 @@ export default function Home() {
           allLandmarks={allLandmarks}
         />
 
-        {/* Travel Notes Slide-Over Modal */}
-        <TravelNotesPanel
-          isOpen={showTravelNotes}
-          onClose={() => setShowTravelNotes(false)}
-        />
+        {/* FLOATING ACTION BUTTON (FAB) FOR AI TRAVEL CHATBOT AT BOTTOM RIGHT */}
+        <button
+          onClick={() => setShowAIChatbot(true)}
+          className="fixed bottom-20 right-4 md:bottom-6 md:right-6 z-40 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 border-2 border-amber-300/60 shadow-2xl px-4 py-2.5 rounded-full flex items-center gap-2 backdrop-blur-xl transition-all hover:scale-105 active:scale-95 font-black text-xs md:text-sm cursor-pointer pointer-events-auto"
+          title="Mở Trợ Lý Rồng AI Du Lịch 24/7"
+        >
+          <span className="text-lg md:text-xl animate-bounce">🤖</span>
+          <span>Trợ Lý AI</span>
+        </button>
 
         {/* DRAGON MASCOT PET ASSISTANT (Toggled via Settings) */}
         {showPet && <DragonPet />}
@@ -626,6 +633,14 @@ export default function Home() {
             <PuzzleGame />
           </div>
         </div>
+      )}
+
+      {/* AI TRAVEL CHATBOT MODAL */}
+      {showAIChatbot && (
+        <AIChatbotModal
+          isOpen={showAIChatbot}
+          onClose={() => setShowAIChatbot(false)}
+        />
       )}
     </main>
   );
