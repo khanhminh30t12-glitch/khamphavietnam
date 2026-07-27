@@ -9,7 +9,7 @@ interface NavigationPanelProps {
   stops: Landmark[];
   isOpen: boolean;
   onClose: () => void;
-  onSpeakRoute: (text: { vi: string; en: string }) => void;
+  onSpeakRoute?: (text: { vi: string; en: string }) => void;
 }
 
 // Calculate Haversine distance in KM between 2 coordinates

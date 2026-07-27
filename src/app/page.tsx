@@ -4,22 +4,18 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import Map3DView from '@/components/Map3DView';
-import FogOverlay from '@/components/FogOverlay';
-import DragonPet from '@/components/DragonPet';
 import LandmarkDetailPanel from '@/components/LandmarkDetailPanel';
 import NavigationPanel from '@/components/NavigationPanel';
 import DesktopSidebar from '@/components/layout/DesktopSidebar';
 import MobileNav from '@/components/layout/MobileNav';
 import PresetTourSelector from '@/components/layout/PresetTourSelector';
 import TourProgressBar from '@/components/layout/TourProgressBar';
-import DragonGuide from '@/components/DragonGuide';
 import SearchBar from '@/components/SearchBar';
 import LoginSplashScreen from '@/components/LoginSplashScreen';
 import WeatherWidget from '@/components/WeatherWidget';
 import { RouteStep } from '@/utils/routing';
 import { regions, tourRoutes } from '@/data/vietnamTourismData';
 import { useTourManager } from '@/hooks/useTourManager';
-import { usePetState } from '@/hooks/usePetState';
 import { useGame } from '@/context/GameContext';
 import { useLanguage } from '@/context/LanguageContext';
 import { Landmark, Coordinates } from '@/types';
@@ -36,9 +32,7 @@ const PuzzleGame = dynamic(() => import('@/components/PuzzleGame'), { ssr: false
 const TravelNotesPanel = dynamic(() => import('@/components/TravelNotesPanel'), { ssr: false });
 const RewardStore = dynamic(() => import('@/components/RewardStore'), { ssr: false });
 
-import OnboardingTour from '@/components/OnboardingTour';
 import WeatherEffects, { WeatherMode } from '@/components/WeatherEffects';
-import Dragon3DEffects, { DragonElementType } from '@/components/Dragon3DEffects';
 import PoiFilterToolbar, { PoiCategoryFilter, RadiusFilter } from '@/components/PoiFilterToolbar';
 
 const AIChatbotModal = dynamic(() => import('@/components/AIChatbotModal'), { ssr: false });
@@ -49,7 +43,6 @@ export default function Home() {
   const { progress, checkIn, revealArea } = useGame();
   const { t, tr, language } = useLanguage();
   const tourManager = useTourManager();
-  const { speak } = usePetState();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
@@ -63,11 +56,6 @@ export default function Home() {
   const [showAIChatbot, setShowAIChatbot] = useState(false);
   const [performanceMode, setPerformanceMode] = useState<'high' | 'eco'>('high');
   const [showPet, setShowPet] = useState(true);
-  const [activeDragonBlast, setActiveDragonBlast] = useState<{
-    element: DragonElementType;
-    landmarkName: string;
-    landmarkObj: Landmark;
-  } | null>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -147,11 +135,6 @@ export default function Home() {
 
     const tour = tourRoutes.find(t => t.id === tourId);
     if (tour) {
-      speak({
-        vi: `Kích hoạt ${tour.name.vi}! Hành trình kéo dài ${tour.totalDays} ngày gồm ${tour.stops.length} điểm tham quan tiêu biểu và các trạm dừng nghỉ gợi ý dọc tuyến đường.`,
-        en: `Activated ${tour.name.en}! A ${tour.totalDays}-day journey with ${tour.stops.length} stops and scenic rest stations along the road.`
-      });
-
       const tourLandmarks = tour.stops
         .map(stop => allLandmarks.find(l => l.id === stop.landmarkId))
         .filter((l): l is Landmark => Boolean(l));
@@ -164,10 +147,6 @@ export default function Home() {
 
   const handleSearchSelectLandmark = (landmark: Landmark) => {
     handleLandmarkSelect(landmark);
-    speak({
-      vi: `Chào mừng bạn đến với ${landmark.name.vi}! Nơi đây mang đậm dấu ấn lịch sử văn hóa và kiến trúc tuyệt đẹp.`,
-      en: `Welcome to ${landmark.name.en}! A destination rich in heritage and unique architecture.`
-    });
   };
 
   const handleSearchSelectPOI = async (name: string, coords: Coordinates, landmarkRef: Landmark) => {
@@ -202,11 +181,6 @@ export default function Home() {
     if (tourLandmarks.length > 0) {
       setSelectedLandmark(tourLandmarks[0]);
     }
-
-    speak({
-      vi: `Kích hoạt ${tour.name.vi}! Tour kéo dài ${tour.totalDays} ngày với ${tour.stops.length} điểm tham quan tiêu biểu.`,
-      en: `Activated ${tour.name.en}! A ${tour.totalDays}-day tour featuring ${tour.stops.length} stops.`
-    });
   };
 
   const handleCheckInComplete = (photoUrl: string) => {
@@ -253,14 +227,6 @@ export default function Home() {
       setSelectedLandmark(customLandmarks[0]);
       setNavigateToCoords(customLandmarks[0].coordinates);
     }
-
-    const firstSpot = t(customLandmarks[0].name);
-    const lastSpot = t(customLandmarks[customLandmarks.length - 1].name);
-
-    speak({
-      vi: `Rồng AI đã lập tuyến đường bám mặt đường qua ${customLandmarks.length} điểm bạn chọn từ ${firstSpot} tới ${lastSpot}. Bắt đầu chuyến đi thôi!`,
-      en: `Dragon AI has routed through your ${customLandmarks.length} selected spots from ${firstSpot} to ${lastSpot}. Let's go!`
-    });
   };
 
   const handleNavigate = (path: string) => {
@@ -291,33 +257,9 @@ export default function Home() {
 
   return (
     <main className="relative w-full h-screen overflow-hidden bg-slate-900">
-      {/* 3D Realist Mythical Dragon Fly-Down Sky Animation & 4-Element Screen Impact */}
-      {activeDragonBlast && (
-        <Dragon3DEffects
-          element={activeDragonBlast.element}
-          landmarkName={activeDragonBlast.landmarkName}
-          onComplete={() => {
-            setSelectedLandmark(activeDragonBlast.landmarkObj);
-            setShowPreview3D(true);
-            setShowLandmarkPanel(true);
-            setActiveDragonBlast(null);
-          }}
-        />
-      )}
 
       {/* 3D Dynamic Weather Effects Canvas (Rain, Sunbeams, Clouds, Snow) */}
       <WeatherEffects mode={weatherMode} />
-
-      {/* Step-by-Step Guided Tutorial */}
-      <OnboardingTour
-        isOpen={showOnboarding}
-        onClose={() => {
-          setShowOnboarding(false);
-          if (typeof window !== 'undefined') {
-            localStorage.setItem('hasCompletedTutorial', 'true');
-          }
-        }}
-      />
 
       {/* Desktop Sidebar */}
       <DesktopSidebar
@@ -367,12 +309,6 @@ export default function Home() {
           activeTour={tourManager.activeTour}
           activePoiCategory={poiCategory}
           activeRadius={activeRadius}
-        />
-
-        {/* Fog of War Overlay */}
-        <FogOverlay
-          revealedAreas={progress.revealedAreas}
-          allLandmarks={allLandmarks}
         />
 
         {/* SMART SHIMMERING STAR MASCOT */}
@@ -426,13 +362,12 @@ export default function Home() {
           />
         )}
 
-        {/* Navigation Steps & Dragon AI Audio Directions Panel */}
+        {/* Navigation Steps Panel */}
         {showNavigationPanel && activeTourStops.length >= 2 && (
           <NavigationPanel
             stops={activeTourStops}
             isOpen={showNavigationPanel}
             onClose={() => setShowNavigationPanel(false)}
-            onSpeakRoute={speak}
           />
         )}
 
