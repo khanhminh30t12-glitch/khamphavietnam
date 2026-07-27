@@ -239,7 +239,6 @@ export default function Home() {
         onModeChange={handleModeChange}
         onCheckInClick={() => setShowCamera(true)}
         onNavigate={handleNavigate}
-        onRestartTutorial={() => setShowOnboarding(true)}
       />
 
       {/* Main Content Area */}
