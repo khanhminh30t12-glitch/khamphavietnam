@@ -5,6 +5,7 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { Landmark, Coordinates } from '@/types';
 import { regions } from '@/data/vietnamTourismData';
+import { WORLD_MINUS_VIETNAM_GEOJSON, VIETNAM_GLOW_BORDER_GEOJSON } from '@/data/vietnamBoundaryGeoJSON';
 import { calculateHaversineDistance } from '@/utils/geoDistance';
 import { PoiCategoryFilter, RadiusFilter } from './PoiFilterToolbar';
 
@@ -103,6 +104,7 @@ export function Map3DViewComponent({
       initialMap.setTerrain({ source: 'mapbox-dem', exaggeration: 1.2 });
 
       setLoading(false);
+      renderVietnamHighlightMask(initialMap);
       renderLandmarkMarkers(initialMap);
       renderPoiMarkers(initialMap, showPoiMarkers);
     });
@@ -116,6 +118,72 @@ export function Map3DViewComponent({
       initialMap.remove();
     };
   }, []);
+
+  // Render Outside World Grayscale Mask & Glowing Vietnam National Border
+  const renderVietnamHighlightMask = (mapInstance: mapboxgl.Map) => {
+    const maskSourceId = 'world-outside-mask-source';
+    const maskLayerId = 'world-outside-mask-layer';
+
+    if (!mapInstance.getSource(maskSourceId)) {
+      mapInstance.addSource(maskSourceId, {
+        type: 'geojson',
+        data: WORLD_MINUS_VIETNAM_GEOJSON
+      });
+    }
+
+    if (!mapInstance.getLayer(maskLayerId)) {
+      mapInstance.addLayer({
+        id: maskLayerId,
+        type: 'fill',
+        source: maskSourceId,
+        layout: {},
+        paint: {
+          'fill-color': '#020617', // Dark slate background to dim out everything outside Vietnam
+          'fill-opacity': 0.65     // 65% opacity mask
+        }
+      });
+    }
+
+    const borderSourceId = 'vietnam-glow-border-source';
+    const borderGlowLayerId = 'vietnam-glow-border-aura';
+    const borderCoreLayerId = 'vietnam-glow-border-core';
+
+    if (!mapInstance.getSource(borderSourceId)) {
+      mapInstance.addSource(borderSourceId, {
+        type: 'geojson',
+        data: VIETNAM_GLOW_BORDER_GEOJSON
+      });
+    }
+
+    if (!mapInstance.getLayer(borderGlowLayerId)) {
+      mapInstance.addLayer({
+        id: borderGlowLayerId,
+        type: 'line',
+        source: borderSourceId,
+        layout: { 'line-join': 'round', 'line-cap': 'round' },
+        paint: {
+          'line-color': '#f59e0b', // Amber/gold neon aura
+          'line-width': 8,
+          'line-blur': 5,
+          'line-opacity': 0.95
+        }
+      });
+    }
+
+    if (!mapInstance.getLayer(borderCoreLayerId)) {
+      mapInstance.addLayer({
+        id: borderCoreLayerId,
+        type: 'line',
+        source: borderSourceId,
+        layout: { 'line-join': 'round', 'line-cap': 'round' },
+        paint: {
+          'line-color': '#ffffff', // Bright white core line
+          'line-width': 2.5,
+          'line-opacity': 1.0
+        }
+      });
+    }
+  };
 
   // Handle POI Visibility Toggle
   useEffect(() => {
@@ -148,6 +216,7 @@ export function Map3DViewComponent({
         });
       }
       map.setTerrain({ source: 'mapbox-dem', exaggeration: 1.2 });
+      renderVietnamHighlightMask(map);
       renderLandmarkMarkers(map);
       renderPoiMarkers(map, showPoiMarkers);
     });
