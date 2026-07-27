@@ -38,6 +38,7 @@ import PoiFilterToolbar, { PoiCategoryFilter, RadiusFilter } from '@/components/
 const AIChatbotModal = dynamic(() => import('@/components/AIChatbotModal'), { ssr: false });
 const StarMascot = dynamic(() => import('@/components/StarMascot'), { ssr: false });
 import StarryBackgroundCanvas from '@/components/StarryBackgroundCanvas';
+import AppOnboardingTour from '@/components/AppOnboardingTour';
 
 export default function Home() {
   const router = useRouter();
@@ -218,10 +219,7 @@ export default function Home() {
 
   const handleLoginSuccess = () => {
     setIsLoggedIn(true);
-    const completed = localStorage.getItem('hasCompletedTutorial');
-    if (completed !== 'true') {
-      setShowOnboarding(true);
-    }
+    setShowOnboarding(true);
   };
 
   if (!isLoggedIn) {
@@ -232,6 +230,13 @@ export default function Home() {
     <main className="relative w-full h-screen overflow-hidden bg-[#F7F4EC]">
       {/* SHIMMERING RED STARS ON WARM BEIGE BACKGROUND */}
       <StarryBackgroundCanvas />
+
+      {/* AUTOMATIC STEP-BY-STEP ONBOARDING TOUR */}
+      <AppOnboardingTour
+        isOpen={showOnboarding}
+        onClose={() => setShowOnboarding(false)}
+        onOpenAiChat={() => setShowAIChatbot(true)}
+      />
 
       {/* 3D Dynamic Weather Effects Canvas (Rain, Sunbeams, Clouds, Snow) */}
       <WeatherEffects mode={weatherMode} />
@@ -289,6 +294,7 @@ export default function Home() {
         <StarMascot
           selectedLandmark={selectedLandmark}
           onOpenAiChat={() => setShowAIChatbot(true)}
+          onOpenTour={() => setShowOnboarding(true)}
         />
 
         {/* FLOATING ACTION BUTTON (FAB) FOR AI TRAVEL CHATBOT AT BOTTOM RIGHT */}
