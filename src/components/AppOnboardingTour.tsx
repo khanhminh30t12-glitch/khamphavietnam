@@ -29,38 +29,35 @@ export default function AppOnboardingTour({ isOpen, onClose }: AppOnboardingTour
 
   const tourSteps = [
     {
-      title: isEn ? '🌟 Welcome to Explore Vietnam!' : '🌟 Chào mừng đến với Khám Phá Việt Nam!',
+      stepBadge: isEn ? 'STEP 2 / 4: MAP & SOVEREIGNTY' : 'BƯỚC 2: KHÁM PHÁ BẢN ĐỒ & CHỦ QUYỀN',
+      title: isEn ? '🗺️ Explore Vietnam 3D Map & Sacred Islands' : '🗺️ Khám Phá Bản Đồ 3D & Chủ Quyền Lãnh Thổ',
       text: isEn
-        ? "Hello! I am your AI Humanoid Star Mascot 🌟! Let me guide you step-by-step to explore the application!"
-        : "Xin chào! Mình là Trợ lý Ngôi Sao AI 🌟! Hãy để mình hướng dẫn bạn từng bước khám phá ứng dụng nhé!",
-      icon: '🌟'
-    },
-    {
-      title: isEn ? '🗺️ Interactive 3D Map & Sovereignty' : '🗺️ Bản Đồ 3D & Lãnh Thổ Việt Nam',
-      text: isEn
-        ? "Tap on any landmark or the 🇻🇳 Hoang Sa & Truong Sa Archipelagos on the 3D map to explore rich history & national beauty."
-        : "Chạm vào các danh thắng hoặc 2 Quần đảo 🇻🇳 Hoàng Sa & 🇻🇳 Trường Sa để khám phá lịch sử & vẻ đẹp đất nước.",
+        ? "Step 2: Tap on any landmark or the two sacred archipelagos 🇻🇳 Hoang Sa & 🇻🇳 Truong Sa on the 3D map to explore rich history & national heritage."
+        : "Bước 2: Chạm vào các danh thắng hoặc 2 Quần đảo 🇻🇳 Hoàng Sa & 🇻🇳 Trường Sa trên bản đồ để khám phá thông tin.",
       icon: '🇻🇳'
     },
     {
-      title: isEn ? '🍱 Restaurants, Hotels & Radius Filter' : '🍱 Quán Ăn, Khách Sạn & Lọc Bán Kính',
+      stepBadge: isEn ? 'STEP 3 / 4: SERVICES & RADIUS' : 'BƯỚC 3: QUÁN ĂN, KHÁCH SẠN & LỌC BÁN KÍNH',
+      title: isEn ? '🍱 Filter Nearby Eateries & Hotels' : '🍱 Tìm Quán Ăn, Khách Sạn Gần Nhất',
       text: isEn
-        ? "Explore nearby eateries and hotels around any landmark with flexible radius filtering from 5km up to 30km."
-        : "Nơi đây chứa danh sách Quán ăn, Khách sạn kèm bộ lọc bán kính linh hoạt từ 5km đến 30km xung quanh địa điểm.",
+        ? "Step 3: Select Eateries or Hotels category inside place details panel and choose radius (5km, 10km, 20km, 30km) to find closest services around you."
+        : "Bước 3: Chọn danh mục Quán ăn, Khách sạn và chọn bán kính (5km, 10km, 20km, 30km) để tìm địa điểm gần bạn nhất.",
       icon: '🏨'
     },
     {
-      title: isEn ? '🚗 Real GPS Directions to Google Maps' : '🚗 Chỉ Đường Thực Tế Ngoài Đời',
+      stepBadge: isEn ? 'STEP 4 / 4: REAL GPS NAVIGATION' : 'BƯỚC 4: CHỈ ĐƯỜNG REAL-TIME OUTDOOR',
+      title: isEn ? '🚗 Launch Google Maps / Apple Maps' : '🚗 Chỉ Đường Thực Tế Ngoài Đời Thực',
       text: isEn
-        ? "Tap [🚗 Directions] inside any place details panel to launch Google Maps and navigate directly in real life!"
-        : "Bấm nút [🚗 Chỉ đường] trong Bảng địa điểm để mở thẳng Google Maps dẫn đường cho bạn đến tận nơi ngoài đời thực.",
+        ? "Step 4: Tap [🚗 Directions] button to open Google Maps or Apple Maps directly and navigate outdoors in real life!"
+        : "Bước 4: Nhấp nút [🚗 Chỉ đường] để mở Google Maps / Apple Maps dẫn bạn tới tận nơi ngoài đời thực.",
       icon: '🚗'
     },
     {
-      title: isEn ? '⭐ Star Progression (Level 1 to 20)' : '⭐ Tích Điểm Thăng Cấp (Lv.1 - Lv.20)',
+      stepBadge: isEn ? 'EXP PROGRESSION MECHANISM' : 'CƠ CHẾ TÍCH ĐIỂM THĂNG CẤP',
+      title: isEn ? '⭐ Level Up AI Star Mascot (Lv.1 -> Lv.20)' : '⭐ Nâng Cấp Linh Vật Ngôi Sao AI (Lv.1 -> Lv.20)',
       text: isEn
-        ? "Interact, check-in, and build tours to gain EXP and level up your Star Mascot from Level 1 up to Level 20 Supernova!"
-        : "Tương tác, check-in và tạo Tour nhiều để giúp mình nhận EXP nâng cấp từ Lv.1 lên Lv.20 Tối Cao Vũ Trụ nhé!",
+        ? "Operational Mechanism: Every interaction, check-in, and tour build on the web earns EXP to level up your AI Star Mascot from Lv.1 to Lv.20 Supernova!"
+        : "Mỗi tương tác của bạn trên web sẽ giúp mình tích lũy EXP để nâng cấp từ Lv.1 đến Lv.20 đấy!",
       icon: '🚀'
     }
   ];
@@ -97,7 +94,7 @@ export default function AppOnboardingTour({ isOpen, onClose }: AppOnboardingTour
           <div className="flex items-center gap-2">
             <span className="text-2xl text-red-600 animate-spin">⭐</span>
             <span className="px-3 py-1 rounded-full bg-red-700 text-amber-300 font-mono text-xs font-black uppercase tracking-wider shadow-sm">
-              {isEn ? `STEP ${currentStep + 1} / ${tourSteps.length}` : `BƯỚC ${currentStep + 1} / ${tourSteps.length}`}
+              {activeStepData.stepBadge}
             </span>
           </div>
           <button
@@ -115,7 +112,7 @@ export default function AppOnboardingTour({ isOpen, onClose }: AppOnboardingTour
             <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-red-600 via-rose-500 to-amber-400 blur-xl opacity-90 animate-pulse" />
             <svg viewBox="0 0 100 120" className="w-full h-full drop-shadow-xl relative z-10 animate-bounce">
               <defs>
-                <linearGradient id="starHeadGradHigh" x1="0%" y1="0%" x2="100%" y2="100%">
+                <linearGradient id="starHeadGradAfter" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#fef08a" />
                   <stop offset="50%" stopColor="#ef4444" />
                   <stop offset="100%" stopColor="#991b1b" />
@@ -127,7 +124,7 @@ export default function AppOnboardingTour({ isOpen, onClose }: AppOnboardingTour
               <path d="M 62 85 L 65 110" stroke="#991b1b" strokeWidth="7" strokeLinecap="round" />
               <rect x="32" y="55" width="36" height="32" rx="10" fill="#dc2626" stroke="#991b1b" strokeWidth="2" />
               <polygon points="50,58 45,72 55,72" fill="#fef08a" />
-              <polygon points="50,5 61,28 85,30 67,46 72,70 50,57 28,70 33,46 15,30 39,28" fill="url(#starHeadGradHigh)" stroke="#7f1d1d" strokeWidth="2" />
+              <polygon points="50,5 61,28 85,30 67,46 72,70 50,57 28,70 33,46 15,30 39,28" fill="url(#starHeadGradAfter)" stroke="#7f1d1d" strokeWidth="2" />
               <circle cx="42" cy="38" r="4" fill="#0f172a" />
               <circle cx="58" cy="38" r="4" fill="#0f172a" />
               <path d="M 43 46 Q 50 54 57 46" fill="none" stroke="#0f172a" strokeWidth="3" strokeLinecap="round" />
